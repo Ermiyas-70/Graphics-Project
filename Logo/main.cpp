@@ -1,177 +1,120 @@
-/*
- * GLUT Shapes Demo
- *
- * Written by Nigel Stewart November 2003
- *
- * This program is test harness for the sphere, cone
- * and torus shapes in GLUT.
- *
- * Spinning wireframe and smooth shaded shapes are
- * displayed until the ESC or q key is pressed.  The
- * number of geometry stacks and slices can be adjusted
- * using the + and - keys.
- */
-
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
 #include <GL/glut.h>
-#endif
+#include <cmath>
 
-#include <stdlib.h>
+const float PI = 3.14159265359f;
 
-static int slices = 16;
-static int stacks = 16;
+void drawBlock(float x, float y, float width, float height, float slant) {
+    glBegin(GL_QUADS);
+        glVertex2f(x, y);
+        glVertex2f(x + width, y);
+        glVertex2f(x + width + slant, y + height);
+        glVertex2f(x + slant, y + height);
+    glEnd();
+}
 
-/* GLUT callback Handlers */
+void drawStudent1_D_Extension_AndLeftSlices() {
+    float leftGap = 0.15f;
+    glBegin(GL_POLYGON);
+        glVertex2f(-3.05f, -0.35f); glVertex2f(-2.03f-leftGap, -0.35f);
+        glVertex2f(-1.81f-leftGap, -0.05f); glVertex2f(-3.27f, -0.05f);
+    glEnd();
 
-static void resize(int width, int height)
-{
-    const float ar = (float) width / (float) height;
+    glPushMatrix();
+    glTranslatef(-1.45f, 0.05f, 0.0f);
+    glScalef(0.68f, 0.68f, 1.0f);
+    glColor3f(0.85f, 0.0f, 0.0f);
 
-    glViewport(0, 0, width, height);
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.75f, 0.18f); glVertex2f( 0.35f, 0.18f);
+        glVertex2f( 0.55f, 0.62f); glVertex2f(-0.55f, 0.62f);
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+        glVertex2f(0.35f, 0.18f);
+        for(int i = 0; i <= 100; i++) {
+            float theta = (75.0f * i) / 100.0f;
+            float rad = theta * PI / 180.0f;
+            glVertex2f(0.35f + 0.42f * cos(rad), 0.18f + 0.44f * sin(rad));
+        }
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex2f(0.77f, 0.18f); glVertex2f(0.35f, 0.18f);
+        glVertex2f(0.12f, -0.05f); glVertex2f(0.45f, -0.05f);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.40f,  0.10f); glVertex2f( 0.05f,  0.10f);
+        glVertex2f(-0.15f, -0.22f); glVertex2f(-0.61f, -0.22f);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.61f, -0.22f); glVertex2f(-0.15f, -0.22f);
+        float centerX = -0.15f, centerY = -0.22f;
+        float radiusX = 0.70f, radiusY = 0.45f;
+        for(float i = 0; i >= -90; i -= 1) {
+            float rad = i * PI / 180.0f;
+            glVertex2f(centerX + cos(rad) * radiusX, centerY + sin(rad) * radiusY);
+        }
+        glVertex2f(-0.85f, -0.67f);
+    glEnd();
+    glPopMatrix();
+
+    glColor3f(1.0f, 0.8f, 0.0f);
+    glBegin(GL_QUADS);
+        glVertex2f(-3.30f, -0.26f); glVertex2f(-1.98f, -0.26f);
+        glVertex2f(-1.98f, -0.24f); glVertex2f(-3.30f, -0.24f);
+
+        glVertex2f(-3.30f, -0.16f); glVertex2f(-1.98f, -0.16f);
+        glVertex2f(-1.98f, -0.14f); glVertex2f(-3.30f, -0.14f);
+
+
+        glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
+        glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
+    glEnd();
+}
+
+void drawStudent2_H(float hShiftX, float lStartX) {
+
+}
+
+void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
+
+}
+
+void display() {
+    glClearColor(1.0f, 0.8f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glPushMatrix();
+    glTranslatef(0.55f, 0.0f, 0.0f);
+    glColor3f(0.85f, 0.0f, 0.0f);
+
+    float rightGap = 0.15f;
+    float lStartX = 0.05f;
+    float hShiftX = 0.10f;
+
+    drawStudent1_D_Extension_AndLeftSlices();
+    drawStudent2_H(hShiftX, lStartX);
+    drawStudent3_L_Extension_AndRightSlices(lStartX, rightGap);
+
+    glPopMatrix();
+    glFlush();
+}
+
+void init() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(-ar, ar, -1.0, 1.0, 2.0, 100.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity() ;
+    gluOrtho2D(-2.5, 2.5, -1.0, 1.0);
 }
 
-static void display(void)
-{
-    const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
-    const double a = t*90.0;
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glColor3d(1,0,0);
-
-    glPushMatrix();
-        glTranslated(-2.4,1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutSolidSphere(1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(0,1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutSolidCone(1,1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(2.4,1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutSolidTorus(0.2,0.8,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(-2.4,-1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutWireSphere(1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(0,-1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutWireCone(1,1,slices,stacks);
-    glPopMatrix();
-
-    glPushMatrix();
-        glTranslated(2.4,-1.2,-6);
-        glRotated(60,1,0,0);
-        glRotated(a,0,0,1);
-        glutWireTorus(0.2,0.8,slices,stacks);
-    glPopMatrix();
-
-    glutSwapBuffers();
-}
-
-
-static void key(unsigned char key, int x, int y)
-{
-    switch (key)
-    {
-        case 27 :
-        case 'q':
-            exit(0);
-            break;
-
-        case '+':
-            slices++;
-            stacks++;
-            break;
-
-        case '-':
-            if (slices>3 && stacks>3)
-            {
-                slices--;
-                stacks--;
-            }
-            break;
-    }
-
-    glutPostRedisplay();
-}
-
-static void idle(void)
-{
-    glutPostRedisplay();
-}
-
-const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
-const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
-
-const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
-const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
-const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat high_shininess[] = { 100.0f };
-
-/* Program entry point */
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitWindowSize(640,480);
-    glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-
-    glutCreateWindow("GLUT Shapes");
-
-    glutReshapeFunc(resize);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(1200, 500);
+    glutCreateWindow("DHL Logo - Student 1 Baseline with Bottom Cut");
+    init();
     glutDisplayFunc(display);
-    glutKeyboardFunc(key);
-    glutIdleFunc(idle);
-
-    glClearColor(1,1,1,1);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
     glutMainLoop();
-
-    return EXIT_SUCCESS;
+    return 0;
 }
