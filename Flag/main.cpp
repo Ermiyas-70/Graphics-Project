@@ -26,7 +26,7 @@ void drawStar(float cx, float cy, float outerR, float innerR) {
 }
 
 void drawStudent1_Background() {
-
+    drawRectangle(-1.0, -0.75, 2.5, 1.5, 0.0, 0.13, 0.45);
 }
 
 void drawStudent2_UnionJack() {
@@ -39,7 +39,7 @@ void drawStudent3_StarsRing() {
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-
+      drawStudent1_Background();
 
     glFlush();
 }
