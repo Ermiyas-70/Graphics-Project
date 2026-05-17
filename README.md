@@ -15,43 +15,43 @@ To meet our project development timeline, our team cleanly modularized the codeb
   * **Star Cluster Matrix:** Designed a parameterized `drawStar()` sub-routine and calculated a distribution matrix using a $2\pi$ radial loop partitioned into 15 discrete divisions ($i \times \frac{2.0 \times \pi}{15.0}$) to perfectly generate a circular ring of stars centered at a translation offset of $(0.65, 0.0)$.
 
 ### 2. Student 2: Letter Asset "H" & Matrix Proportions
-* **Responsibilities:*
-  * Constructed the modular framework helper function `drawBlock()` to automatically handle the construction of parallel, slanted quadrilaterals across multiple shear slopes.
-  * Computed precise layout balancing logic to calculate individual spacing gaps (`hShiftX`), keeping the horizontal crossbars structurally aligned with the vertical columns without overlapping.
-  * Conducted primary matrix scaling and viewport safety testing.
+* **Responsibilities:**[cite: 1]
+  * Constructed the modular framework helper function `drawBlock()` to automatically handle the construction of parallel, slanted quadrilaterals across multiple shear slopes[cite: 1].
+  * Computed precise layout balancing logic to calculate individual spacing gaps (`hShiftX`), keeping the horizontal crossbars structurally aligned with the vertical columns without overlapping[cite: 1].
+  * Conducted primary matrix scaling and viewport safety testing[cite: 1].
 
 ### 3. Student 3: Letter Asset "L", Mask Layering & Interactivity
-* **Responsibilities:**
-  * Structured the primary stem, baseline, and foundational smooth curve radius of the letter `L`.
-  * Designed the negative-space masking system (`student3_applyNegativeSpaceMask`). This function intentionally renders white clipping strips over existing geometry layers to seamlessly construct the iconic horizontal speed lines across all letters without breaking underlying structural loops.
-  * Implemented the Global Matrix Transformation chain, incorporating the **Bonus Challenge** mouse callback interactive trigger and automated double-buffered rendering frame refreshes.
+* **Responsibilities:**[cite: 1]
+  * Structured the primary stem, baseline, and foundational smooth curve radius of the letter `L`[cite: 1].
+  * Designed the negative-space masking system (`student3_applyNegativeSpaceMask`). This function intentionally renders white clipping strips over existing geometry layers to seamlessly construct the iconic horizontal speed lines across all letters without breaking underlying structural loops[cite: 1].
+  * Implemented the Global Matrix Transformation chain, incorporating the **Bonus Challenge** mouse callback interactive trigger and automated double-buffered rendering frame refreshes[cite: 1].
 
 ---
 
-## 🛠️ Checklist Coverage
+## 🛠️ Grading Rubric Checklist Coverage
 
 | Required Criteria | Implementation Status | Technical Details in Code |
 | :--- | :---: | :--- |
-| **1. Basic Primitives** | ✅  Utilizes a rich suite of primitives including `GL_QUADS`, `GL_POLYGON`, `GL_LINES`, and `GL_TRIANGLE_FAN`. |
-| **2. Color Handling** | ✅  Leverages floating-point `glColor3f` arrays mapping complex real-world monochromatic and historical color fields (Deep Maritime Navy Blue `0.0, 0.13, 0.45`, Crisp White `1.0, 1.0, 1.0`, and Pure Red `1.0, 0.0, 0.0`). |
-| **3. Three Distinct Transformations** | ✅ Combines **Translation** (`glTranslatef`), **Scaling** (`glScalef`), and **Rotation** (`glRotatef`) operations within a unified stack. |
-| **4. Advanced Bonus Feature** | 🚀 COMPLETE | High-performance interactive **Animation Loop Engine**. Left-clicking inside the viewport dynamically toggles a smooth $60\text{ FPS}$ rotative spin cycle around the matrix origin point using double buffering (`GLUT_DOUBLE`)]. |
+| **1. Basic Primitives** | ✅ PASSED | Utilizes a rich suite of primitives including `GL_QUADS`, `GL_POLYGON`, `GL_LINES`, and `GL_TRIANGLE_FAN`. |
+| **2. Color Handling** | ✅ PASSED | Leverages floating-point `glColor3f` arrays mapping complex real-world monochromatic and historical color fields (Deep Maritime Navy Blue `0.0, 0.13, 0.45`, Crisp White `1.0, 1.0, 1.0`, and Pure Red `1.0, 0.0, 0.0`). |
+| **3. Three Distinct Transformations** | ✅ PASSED | Combines **Translation** (`glTranslatef`), **Scaling** (`glScalef`), and **Rotation** (`glRotatef`) operations within a unified stack[cite: 1]. |
+| **4. Advanced Bonus Feature** | 🚀 COMPLETE | High-performance interactive **Animation Loop Engine**. Left-clicking inside the viewport dynamically toggles a smooth $60\text{ FPS}$ rotative spin cycle around the matrix origin point using double buffering (`GLUT_DOUBLE`)[cite: 1]. |
 
 ---
 
 ## 🖥️ Environment Setup & Prerequisites
 
-Before compiling, you must have an environment capable of linking OpenGL/GLUT. 
+Before compiling, you must have an environment capable of linking OpenGL/GLUT[cite: 1]. 
 
 ### 🟥 For Windows (Using MinGW / GCC)
-1. Download the **FreeGLUT** development binaries (e.g., from Transmission Zero).
-2. Extract the files and map them to your system directories:
-   * Copy `include/GL` files inside your MinGW compiler path: `MinGW\include\GL\`.
-   * Copy `lib/libfreeglut.a` (or `libglut32.a`) to `MinGW\lib\`.
-   * Move `bin/freeglut.dll` to `C:\Windows\System32\` (or leave it in your active execution directory).
+1. Download the **FreeGLUT** development binaries (e.g., from Transmission Zero)[cite: 1].
+2. Extract the files and map them to your system directories[cite: 1]:
+   * Copy `include/GL` files inside your MinGW compiler path: `MinGW\include\GL\`[cite: 1].
+   * Copy `lib/libfreeglut.a` (or `libglut32.a`) to `MinGW\lib\`[cite: 1].
+   * Move `bin/freeglut.dll` to `C:\Windows\System32\` (or leave it in your active execution directory)[cite: 1].
 
 ### 🟩 For Linux (Ubuntu / Debian / Mint)
-Install the primary development tools and mesa-util architecture directly from your native packet manager:
+Install the primary development tools and mesa-util architecture directly from your native packet manager[cite: 1]:
 ```bash
 sudo apt update
 sudo apt install build-essential freeglut3-dev libglu1-mesa-dev mesa-common-dev
