@@ -94,6 +94,48 @@ void drawStudent2_H(float hShiftX, float lStartX) {
 
 void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
 
+    glColor3f(0.85f, 0.0f, 0.0f);
+    glBegin(GL_POLYGON);
+        glVertex2f(lStartX - 0.145f, -0.05f); glVertex2f(lStartX + 0.15f, -0.05f);
+        glVertex2f(lStartX + 0.40f, 0.48f); glVertex2f(lStartX + 0.10f, 0.48f);
+    glEnd();
+    glBegin(GL_POLYGON);
+        glVertex2f(lStartX, -0.35f); glVertex2f(lStartX + 0.60f, -0.35f);
+        glVertex2f(lStartX + 0.90f, -0.05f); glVertex2f(lStartX, -0.05f);
+    glEnd();
+    glBegin(GL_TRIANGLE_FAN);
+        glVertex2f(lStartX, -0.20f);
+        for(int i = 0; i <= 50; i++) {
+            float angle = PI/2.0f + (PI * i / 50.0f);
+            glVertex2f(lStartX + 0.15f * cos(angle), -0.20f + 0.15f * sin(angle));
+        }
+    glEnd();
+glBegin(GL_POLYGON);
+        glVertex2f(lStartX + 0.60f + rightGap, -0.35f); glVertex2f(2.20f, -0.35f);
+        glVertex2f(1.98f, -0.05f); glVertex2f(lStartX + 0.90f + rightGap, -0.05f);
+    glEnd();
+
+
+    glColor3f(1.0f, 0.8f, 0.0f);
+    glBegin(GL_QUADS);
+        // የላይኛው ቀጭን መስመር
+        glVertex2f(lStartX + 0.85f, -0.26f); glVertex2f(2.30f, -0.26f);
+        glVertex2f(2.30f,           -0.24f); glVertex2f(lStartX + 0.85f, -0.24f);
+
+
+        glVertex2f(lStartX + 0.85f, -0.16f); glVertex2f(2.30f, -0.16f);
+        glVertex2f(2.30f,           -0.14f); glVertex2f(lStartX + 0.85f, -0.14f);
+
+
+        glVertex2f(lStartX - 0.20f,            -0.07f);
+        glVertex2f(lStartX + 0.95f,            -0.07f);
+        glVertex2f(lStartX + 0.95f,            -0.005f);
+        glVertex2f(lStartX - 0.20f,            -0.005f);
+
+
+        glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
+        glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
+    glEnd();
 }
 
 void display() {
