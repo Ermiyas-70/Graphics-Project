@@ -75,7 +75,21 @@ void drawStudent1_D_Extension_AndLeftSlices() {
 }
 
 void drawStudent2_H(float hShiftX, float lStartX) {
+  
+    glColor3f(0.85f, 0.0f, 0.0f);
+    drawBlock(-1.10f + hShiftX, -0.35f, 0.22f, 0.83f, 0.40f);
+    drawBlock(-0.65f + hShiftX, -0.35f, 0.22f, 0.83f, 0.40f);
+    drawBlock(-0.90f + hShiftX, 0.05f, 0.45f, 0.15f, 0.10f);
+    drawBlock(-0.92f + hShiftX, -0.01f, 0.47f, 0.06f, 0.05f);
 
+ 
+    glColor3f(1.0f, 0.8f, 0.0f);
+    glBegin(GL_QUADS);
+        glVertex2f(-1.15f + hShiftX,           -0.07f);
+        glVertex2f(lStartX + 0.95f,            -0.07f);
+        glVertex2f(lStartX + 0.95f,            -0.005f);
+        glVertex2f(-1.15f + hShiftX,           -0.005f);
+    glEnd();
 }
 
 void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
