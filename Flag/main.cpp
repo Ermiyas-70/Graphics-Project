@@ -25,12 +25,28 @@ void drawStar(float cx, float cy, float outerR, float innerR) {
     glEnd();
 }
 
-void drawStudent1_Background() {
+void draw_Background() {
     drawRectangle(-1.0, -0.75, 2.5, 1.5, 0.0, 0.13, 0.45);
 }
 
-void drawStudent2_UnionJack() {
-
+void drawUnionJack() {
+    drawRectangle(-1.0, 0.0, 1.0, 0.75, 0.0, 0.13, 0.45);
+    glLineWidth(16);
+    glBegin(GL_LINES);
+        glColor3f(1, 1, 1);
+        glVertex2f(-1.0, 0.75); glVertex2f(0.0, 0.0);
+        glVertex2f(-1.0, 0.0); glVertex2f(0.0, 0.75);
+    glEnd();
+    glLineWidth(6);
+    glBegin(GL_LINES);
+        glColor3f(1, 0, 0);
+        glVertex2f(-1.0, 0.75); glVertex2f(0.0, 0.0);
+        glVertex2f(-1.0, 0.0); glVertex2f(0.0, 0.75);
+    glEnd();
+    drawRectangle(-1.0, 0.28, 1.0, 0.19, 1, 1, 1);
+    drawRectangle(-0.595, 0.0, 0.19, 0.75, 1, 1, 1);
+    drawRectangle(-1.0, 0.32, 1.0, 0.11, 1, 0, 0);
+    drawRectangle(-0.555, 0.0, 0.11, 0.75, 1, 0, 0);
 }
 
 void drawStudent3_StarsRing() {
@@ -39,8 +55,8 @@ void drawStudent3_StarsRing() {
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-      drawStudent1_Background();
-
+     draw_Background();
+     drawUnionJack();
     glFlush();
 }
 
