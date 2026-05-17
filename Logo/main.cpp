@@ -1,61 +1,118 @@
 #include <GL/glut.h>
 #include <cmath>
 
-#define PI 3.14159265
+const float PI = 3.14159265359f;
 
-void drawRectangle(float x, float y, float w, float h, float r, float g, float b) {
-    glColor3f(r, g, b);
+void drawBlock(float x, float y, float width, float height, float slant) {
     glBegin(GL_QUADS);
         glVertex2f(x, y);
-        glVertex2f(x + w, y);
-        glVertex2f(x + w, y + h);
-        glVertex2f(x, y + h);
+        glVertex2f(x + width, y);
+        glVertex2f(x + width + slant, y + height);
+        glVertex2f(x + slant, y + height);
     glEnd();
 }
 
-void drawStar(float cx, float cy, float outerR, float innerR) {
-    glColor3f(1.0, 1.0, 1.0);
+void drawStudent1_D_Extension_AndLeftSlices() {
+    float leftGap = 0.15f;
+    glBegin(GL_POLYGON);
+        glVertex2f(-3.05f, -0.35f); glVertex2f(-2.03f-leftGap, -0.35f);
+        glVertex2f(-1.81f-leftGap, -0.05f); glVertex2f(-3.27f, -0.05f);
+    glEnd();
+
+    glPushMatrix();
+    glTranslatef(-1.45f, 0.05f, 0.0f);
+    glScalef(0.68f, 0.68f, 1.0f);
+    glColor3f(0.85f, 0.0f, 0.0f);
+
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.75f, 0.18f); glVertex2f( 0.35f, 0.18f);
+        glVertex2f( 0.55f, 0.62f); glVertex2f(-0.55f, 0.62f);
+    glEnd();
+
     glBegin(GL_TRIANGLE_FAN);
-        glVertex2f(cx, cy);
-        for (int i = 0; i <= 10; i++) {
-            float angle = PI / 2 + i * PI / 5;
-            float radius = (i % 2 == 0) ? outerR : innerR;
-            glVertex2f(cx + cos(angle) * radius, cy + sin(angle) * radius);
+        glVertex2f(0.35f, 0.18f);
+        for(int i = 0; i <= 100; i++) {
+            float theta = (75.0f * i) / 100.0f;
+            float rad = theta * PI / 180.0f;
+            glVertex2f(0.35f + 0.42f * cos(rad), 0.18f + 0.44f * sin(rad));
         }
     glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex2f(0.77f, 0.18f); glVertex2f(0.35f, 0.18f);
+        glVertex2f(0.12f, -0.05f); glVertex2f(0.45f, -0.05f);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.40f,  0.10f); glVertex2f( 0.05f,  0.10f);
+        glVertex2f(-0.15f, -0.22f); glVertex2f(-0.61f, -0.22f);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex2f(-0.61f, -0.22f); glVertex2f(-0.15f, -0.22f);
+        float centerX = -0.15f, centerY = -0.22f;
+        float radiusX = 0.70f, radiusY = 0.45f;
+        for(float i = 0; i >= -90; i -= 1) {
+            float rad = i * PI / 180.0f;
+            glVertex2f(centerX + cos(rad) * radiusX, centerY + sin(rad) * radiusY);
+        }
+        glVertex2f(-0.85f, -0.67f);
+    glEnd();
+    glPopMatrix();
+
+    glColor3f(1.0f, 0.8f, 0.0f);
+    glBegin(GL_QUADS);
+        glVertex2f(-3.30f, -0.26f); glVertex2f(-1.98f, -0.26f);
+        glVertex2f(-1.98f, -0.24f); glVertex2f(-3.30f, -0.24f);
+
+        glVertex2f(-3.30f, -0.16f); glVertex2f(-1.98f, -0.16f);
+        glVertex2f(-1.98f, -0.14f); glVertex2f(-3.30f, -0.14f);
+
+
+        glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
+        glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
+    glEnd();
 }
 
-void drawStudent1_Background() {
-    drawRectangle(-1.0, -0.75, 2.5, 1.5, 0.0, 0.13, 0.45);
-}
-
-void drawStudent2_UnionJack() {
+void drawStudent2_H(float hShiftX, float lStartX) {
 
 }
 
-void drawStudent3_StarsRing() {
+void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
 
 }
 
 void display() {
+    glClearColor(1.0f, 0.8f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-      drawStudent1_Background();
 
+    glPushMatrix();
+    glTranslatef(0.55f, 0.0f, 0.0f);
+    glColor3f(0.85f, 0.0f, 0.0f);
+
+    float rightGap = 0.15f;
+    float lStartX = 0.05f;
+    float hShiftX = 0.10f;
+
+    drawStudent1_D_Extension_AndLeftSlices();
+    drawStudent2_H(hShiftX, lStartX);
+    drawStudent3_L_Extension_AndRightSlices(lStartX, rightGap);
+
+    glPopMatrix();
     glFlush();
 }
 
 void init() {
-    glClearColor(1, 1, 1, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(-1.0, 1.5, -0.75, 0.75);
+    gluOrtho2D(-2.5, 2.5, -1.0, 1.0);
 }
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize(1000, 600);
-    glutCreateWindow("Cook Islands Flag - Multi-Student Collaboration");
+    glutInitWindowSize(1200, 500);
+    glutCreateWindow("DHL Logo - Student 1 Baseline with Bottom Cut");
     init();
     glutDisplayFunc(display);
     glutMainLoop();
