@@ -1,18 +1,40 @@
 #include <GL/glut.h>
 #include <cmath>
 
-const float PI = 3.14159265359f;
+#define PI 3.14159265
 
-void drawBlock(float x, float y, float width, float height, float slant) {
+void drawRectangle(float x, float y, float w, float h, float r, float g, float b) {
+    glColor3f(r, g, b);
     glBegin(GL_QUADS);
         glVertex2f(x, y);
-        glVertex2f(x + width, y);
-        glVertex2f(x + width + slant, y + height);
-        glVertex2f(x + slant, y + height);
+        glVertex2f(x + w, y);
+        glVertex2f(x + w, y + h);
+        glVertex2f(x, y + h);
     glEnd();
 }
 
-void drawStudent1_D_Extension_AndLeftSlices() {
+void drawUnionJack() {
+    drawRectangle(-1.0, 0.0, 1.0, 0.75, 0.0, 0.13, 0.45);
+    glLineWidth(16);
+    glBegin(GL_LINES);
+        glColor3f(1, 1, 1);
+        glVertex2f(-1.0, 0.75); glVertex2f(0.0, 0.0);
+        glVertex2f(-1.0, 0.0); glVertex2f(0.0, 0.75);
+    glEnd();
+    glLineWidth(6);
+    glBegin(GL_LINES);
+        glColor3f(1, 0, 0);
+        glVertex2f(-1.0, 0.75); glVertex2f(0.0, 0.0);
+        glVertex2f(-1.0, 0.0); glVertex2f(0.0, 0.75);
+    glEnd();
+    drawRectangle(-1.0, 0.28, 1.0, 0.19, 1, 1, 1);
+    drawRectangle(-0.595, 0.0, 0.19, 0.75, 1, 1, 1);
+    drawRectangle(-1.0, 0.32, 1.0, 0.11, 1, 0, 0);
+    drawRectangle(-0.555, 0.0, 0.11, 0.75, 1, 0, 0);
+}
+
+
+
     float leftGap = 0.15f;
     glBegin(GL_POLYGON);
         glVertex2f(-3.05f, -0.35f); glVertex2f(-2.03f-leftGap, -0.35f);
@@ -72,40 +94,24 @@ void drawStudent1_D_Extension_AndLeftSlices() {
         glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
         glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
     glEnd();
-}
-
-void drawStudent2_H(float hShiftX, float lStartX) {
-
-}
-
-void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
-
-}
-
 void display() {
-    glClearColor(1.0f, 0.8f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glPushMatrix();
-    glTranslatef(0.55f, 0.0f, 0.0f);
-    glColor3f(0.85f, 0.0f, 0.0f);
 
-    float rightGap = 0.15f;
-    float lStartX = 0.05f;
-    float hShiftX = 0.10f;
+    drawRectangle(-1.0, -0.75, 2.5, 1.5, 0.0, 0.13, 0.45);
 
-    drawStudent1_D_Extension_AndLeftSlices();
-    drawStudent2_H(hShiftX, lStartX);
-    drawStudent3_L_Extension_AndRightSlices(lStartX, rightGap);
 
-    glPopMatrix();
+    drawUnionJack();
+
+
+    float centerX = 0.65;
+    float ringRadius = 0.45;
+    for (int i = 0; i < 15; i++) {
+        float theta = i * 2.0 * PI / 15.0;
+        drawStar(centerX + ringRadius * cos(theta), ringRadius * sin(theta), 0.08, 0.035);
+    }
+
     glFlush();
-}
-
-void init() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-2.5, 2.5, -1.0, 1.0);
 }
 
 int main(int argc, char** argv) {
