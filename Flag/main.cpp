@@ -94,6 +94,15 @@ void drawUnionJack() {
         glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
         glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
     glEnd();
+
+    void drawStudent3_StarsRing() {
+    float centerX = 0.65; 
+    float ringRadius = 0.45;
+    for (int i = 0; i < 15; i++) {
+        float theta = i * 2.0 * PI / 15.0;
+        drawStar(centerX + ringRadius * cos(theta), ringRadius * sin(theta), 0.08, 0.035);
+    }
+}
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -102,15 +111,7 @@ void display() {
 
 
     drawUnionJack();
-
-
-    float centerX = 0.65;
-    float ringRadius = 0.45;
-    for (int i = 0; i < 15; i++) {
-        float theta = i * 2.0 * PI / 15.0;
-        drawStar(centerX + ringRadius * cos(theta), ringRadius * sin(theta), 0.08, 0.035);
-    }
-
+    drawStudent3_StarsRing();
     glFlush();
 }
 
