@@ -121,7 +121,7 @@ void display() {
     glTranslatef(0.55f, 0.0f, 0.0f);
     glColor3f(0.85f, 0.0f, 0.0f);
 
-    float rightGap = 0.15f;
+    float rightGap = 0.15f
     float lStartX = 0.05f;
     float hShiftX = 0.10f;
 
