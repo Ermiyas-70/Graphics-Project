@@ -3,6 +3,11 @@
 
 const float PI = 3.14159265359f;
 
+
+float rotationAngle = 0.0f;
+bool isSpinning = false;
+
+
 void drawBlock(float x, float y, float width, float height, float slant) {
     glBegin(GL_QUADS);
         glVertex2f(x, y);
@@ -11,23 +16,18 @@ void drawBlock(float x, float y, float width, float height, float slant) {
         glVertex2f(x + slant, y + height);
     glEnd();
 }
-
-void drawStudent1_D_Extension_AndLeftSlices() {
-    float leftGap = 0.15f;
-    glBegin(GL_POLYGON);
-        glVertex2f(-3.05f, -0.35f); glVertex2f(-2.03f-leftGap, -0.35f);
-        glVertex2f(-1.81f-leftGap, -0.05f); glVertex2f(-3.27f, -0.05f);
-    glEnd();
-
+void student1_drawD() {
     glPushMatrix();
     glTranslatef(-1.45f, 0.05f, 0.0f);
     glScalef(0.68f, 0.68f, 1.0f);
-    glColor3f(0.85f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 0.0f);
+
 
     glBegin(GL_POLYGON);
         glVertex2f(-0.75f, 0.18f); glVertex2f( 0.35f, 0.18f);
         glVertex2f( 0.55f, 0.62f); glVertex2f(-0.55f, 0.62f);
     glEnd();
+
 
     glBegin(GL_TRIANGLE_FAN);
         glVertex2f(0.35f, 0.18f);
@@ -59,50 +59,34 @@ void drawStudent1_D_Extension_AndLeftSlices() {
         glVertex2f(-0.85f, -0.67f);
     glEnd();
     glPopMatrix();
-
-    glColor3f(1.0f, 0.8f, 0.0f);
-    glBegin(GL_QUADS);
-        glVertex2f(-3.30f, -0.26f); glVertex2f(-1.98f, -0.26f);
-        glVertex2f(-1.98f, -0.24f); glVertex2f(-3.30f, -0.24f);
-
-        glVertex2f(-3.30f, -0.16f); glVertex2f(-1.98f, -0.16f);
-        glVertex2f(-1.98f, -0.14f); glVertex2f(-3.30f, -0.14f);
-
-
-        glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
-        glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
-    glEnd();
 }
+void student2_drawH(float hShiftX) {
+    glColor3f(0.0f, 0.0f, 0.0f);
 
-void drawStudent2_H(float hShiftX, float lStartX) {
 
-    glColor3f(0.85f, 0.0f, 0.0f);
     drawBlock(-1.10f + hShiftX, -0.35f, 0.22f, 0.83f, 0.40f);
+
     drawBlock(-0.65f + hShiftX, -0.35f, 0.22f, 0.83f, 0.40f);
+
     drawBlock(-0.90f + hShiftX, 0.05f, 0.45f, 0.15f, 0.10f);
     drawBlock(-0.92f + hShiftX, -0.01f, 0.47f, 0.06f, 0.05f);
-
-
-    glColor3f(1.0f, 0.8f, 0.0f);
-    glBegin(GL_QUADS);
-        glVertex2f(-1.15f + hShiftX,           -0.07f);
-        glVertex2f(lStartX + 0.95f,            -0.07f);
-        glVertex2f(lStartX + 0.95f,            -0.005f);
-        glVertex2f(-1.15f + hShiftX,           -0.005f);
-    glEnd();
 }
 
-void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
+void student3_drawL(float lStartX, float rightGap) {
+    glColor3f(0.0f, 0.0f, 0.0f);
 
-    glColor3f(0.85f, 0.0f, 0.0f);
     glBegin(GL_POLYGON);
         glVertex2f(lStartX - 0.145f, -0.05f); glVertex2f(lStartX + 0.15f, -0.05f);
         glVertex2f(lStartX + 0.40f, 0.48f); glVertex2f(lStartX + 0.10f, 0.48f);
     glEnd();
+
+
     glBegin(GL_POLYGON);
         glVertex2f(lStartX, -0.35f); glVertex2f(lStartX + 0.60f, -0.35f);
         glVertex2f(lStartX + 0.90f, -0.05f); glVertex2f(lStartX, -0.05f);
     glEnd();
+
+
     glBegin(GL_TRIANGLE_FAN);
         glVertex2f(lStartX, -0.20f);
         for(int i = 0; i <= 50; i++) {
@@ -111,26 +95,89 @@ void drawStudent3_L_Extension_AndRightSlices(float lStartX, float rightGap) {
         }
     glEnd();
 
+
+    glBegin(GL_POLYGON);
+        glVertex2f(lStartX + 0.60f + rightGap, -0.35f); glVertex2f(2.20f, -0.35f);
+        glVertex2f(1.98f, -0.05f); glVertex2f(lStartX + 0.90f + rightGap, -0.05f);
+    glEnd();
+}
+
+
+void student3_applyNegativeSpaceMask(float lStartX, float hShiftX) {
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+
+        glVertex2f(-3.30f, -0.26f); glVertex2f(-1.98f, -0.26f);
+        glVertex2f(-1.98f, -0.24f); glVertex2f(-3.30f, -0.24f);
+
+        glVertex2f(-3.30f, -0.16f); glVertex2f(-1.98f, -0.16f);
+        glVertex2f(-1.98f, -0.14f); glVertex2f(-3.30f, -0.14f);
+
+        glVertex2f(lStartX + 0.85f, -0.26f); glVertex2f(2.30f, -0.26f);
+        glVertex2f(2.30f,           -0.24f); glVertex2f(lStartX + 0.85f, -0.24f);
+
+        glVertex2f(lStartX + 0.85f, -0.16f); glVertex2f(2.30f, -0.16f);
+        glVertex2f(2.30f,           -0.14f); glVertex2f(lStartX + 0.85f, -0.14f);
+
+
+        glVertex2f(-1.15f + hShiftX,           -0.07f);
+        glVertex2f(lStartX + 0.95f,            -0.07f);
+        glVertex2f(lStartX + 0.95f,            -0.005f);
+        glVertex2f(-1.15f + hShiftX,           -0.005f);
+    glEnd();
+
+
+    glBegin(GL_QUADS);
+        glVertex2f(-3.30f, -0.42f); glVertex2f( 2.30f, -0.42f);
+        glVertex2f( 2.30f, -0.34f); glVertex2f(-3.30f, -0.34f);
+    glEnd();
 }
 
 void display() {
-    glClearColor(1.0f, 0.8f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glPushMatrix();
-    glTranslatef(0.55f, 0.0f, 0.0f);
-    glColor3f(0.85f, 0.0f, 0.0f);
 
-    float rightGap = 0.15f
+
+    glRotatef(rotationAngle, 0.0f, 0.0f, 1.0f);
+    glTranslatef(0.55f, 0.0f, 0.0f);
+
+    float leftGap = 0.15f;
+    float rightGap = 0.15f;
     float lStartX = 0.05f;
     float hShiftX = 0.10f;
 
-    drawStudent1_D_Extension_AndLeftSlices();
-    drawStudent2_H(hShiftX, lStartX);
-    drawStudent3_L_Extension_AndRightSlices(lStartX, rightGap);
+    glColor3f(0.0f, 0.0f, 0.0f);
+    glBegin(GL_POLYGON);
+        glVertex2f(-3.05f, -0.35f); glVertex2f(-2.03f-leftGap, -0.35f);
+        glVertex2f(-1.81f-leftGap, -0.05f); glVertex2f(-3.27f, -0.05f);
+    glEnd();
+
+    student1_drawD();
+    student2_drawH(hShiftX);
+    student3_drawL(lStartX, rightGap);
+
+
+    student3_applyNegativeSpaceMask(lStartX, hShiftX);
 
     glPopMatrix();
-    glFlush();
+    glutSwapBuffers();
+}
+
+void update(int value) {
+    if (isSpinning) {
+        rotationAngle += 2.0f;
+        if (rotationAngle > 360.0f) rotationAngle -= 360.0f;
+        glutPostRedisplay();
+    }
+    glutTimerFunc(16, update, 0);
+}
+
+void mouseClick(int button, int state, int x, int y) {
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        isSpinning = !isSpinning;
+    }
 }
 
 void init() {
@@ -141,11 +188,15 @@ void init() {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(1200, 500);
-    glutCreateWindow("DHL Logo - Student 1 Baseline with Bottom Cut");
+    glutCreateWindow("DHL Logo");
     init();
+
     glutDisplayFunc(display);
+    glutMouseFunc(mouseClick);
+    glutTimerFunc(25, update, 0);
+
     glutMainLoop();
     return 0;
 }
